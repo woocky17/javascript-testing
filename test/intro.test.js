@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { max, fizzBuzz } from "../src/intro";
+import { max, fizzBuzz, calculateAverage } from "../src/intro";
 
 describe("max", () => {
   test("should return the first argument if it is greater", () => {
@@ -25,5 +25,20 @@ describe("fizzBuzz", () => {
   });
   test("should return String if the remainder does not give zero in the previous divisions", () => {
     expect(fizzBuzz(1)).toBe("1");
+  });
+});
+
+describe("calculateAverage", () => {
+  test("should return NaN if given an empty array", () => {
+    expect(calculateAverage([])).toBe(NaN);
+  });
+  test("should calculate the average of an array with a single element", () => {
+    expect(calculateAverage([1])).toBe(1);
+  });
+  test("should calculate the average of an array with two element", () => {
+    expect(calculateAverage([1, 2])).toBe(1.5);
+  });
+  test("should calculate the average of an array with three element", () => {
+    expect(calculateAverage([1, 2, 3])).toBe(2);
   });
 });

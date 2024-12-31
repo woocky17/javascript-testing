@@ -62,7 +62,7 @@ describe("calculateFactorial", () => {
     expect(calculateFactorial(3)).toBe(6);
   });
   test("should return 24 if argument is 4", () => {
-    expect(calculateFactorial(3)).toBe(6);
+    expect(calculateFactorial(4)).toBe(24);
   });
   test("should return undefined if argument is negative", () => {
     expect(calculateFactorial(-3)).toBeUndefined;

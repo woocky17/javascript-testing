@@ -84,18 +84,14 @@ describe("validateUserInput", () => {
 });
 
 describe("isPriceInRange", () => {
-  test("should return false when the price is outside the range", () => {
-    expect(isPriceInRange(-10, 0, 100)).toBeFalsy;
-    expect(isPriceInRange(200, 0, 100)).toBeFalsy;
-  });
-
-  test("should return true when the price is equal to the min or the max", () => {
-    expect(isPriceInRange(0, 0, 100)).toBeTruthy;
-    expect(isPriceInRange(100, 0, 100)).toBeTruthy;
-  });
-
-  test("should return true when the price is in the range", () => {
-    expect(isPriceInRange(50, 0, 100)).toBeTruthy;
+  test.each([
+    { scenario: "price < min", price: -10, result: false },
+    { scenario: "price > max", price: 200, result: false },
+    { scenario: "price = min", price: 0, result: true },
+    { scenario: "price = max", price: 100, result: true },
+    { scenario: "price between min and max", price: 50, result: true },
+  ])("should return $result when $scenario", ({ price, result }) => {
+    expect(isPriceInRange(price, 0, 100)).toBe(result);
   });
 });
 
@@ -133,17 +129,14 @@ describe("canDrive", () => {
     { age: UK - 1, country: "UK", result: false },
     { age: UK, country: "UK", result: true },
     { age: UK + 1, country: "UK", result: true },
-  ])(
-    "should return $result for ($age, $country)",
-    ({ age, country, result }) => {
-      expect(canDrive(age, country)).toBe(result);
-      expect(canDrive(age, country)).toBe(result);
-      expect(canDrive(age, country)).toBe(result);
-      expect(canDrive(age, country)).toBe(result);
-      expect(canDrive(age, country)).toBe(result);
-      expect(canDrive(age, country)).toBe(result);
-    }
-  );
+  ])("should return $result for $age, $country", ({ age, country, result }) => {
+    expect(canDrive(age, country)).toBe(result);
+    expect(canDrive(age, country)).toBe(result);
+    expect(canDrive(age, country)).toBe(result);
+    expect(canDrive(age, country)).toBe(result);
+    expect(canDrive(age, country)).toBe(result);
+    expect(canDrive(age, country)).toBe(result);
+  });
 
   test("should return error for invalid country code", () => {
     expect(canDrive(20, "FR")).toMatch(/invalid/i);

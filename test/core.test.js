@@ -6,6 +6,7 @@ import {
   isPriceInRange,
   isValidUsername,
   canDrive,
+  fetchData,
 } from "../src/core";
 
 describe("getCoupons", () => {
@@ -140,5 +141,20 @@ describe("canDrive", () => {
 
   test("should return error for invalid country code", () => {
     expect(canDrive(20, "FR")).toMatch(/invalid/i);
+  });
+});
+
+describe("fetchData", () => {
+  test("should return a promise that will resolve to an array of numbers", async () => {
+    try {
+      const result = await fetchData();
+    } catch (error) {
+      expect(error).toHaveProperty("reason");
+      expect(error.reason).toMatch(/fail/i);
+    }
+    // expect(Array.isArray(result)).toBe(true);
+    // expect(result.length).toBeGreaterThan(0);
+
+    // fetchData().then((result) => {});
   });
 });

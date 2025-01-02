@@ -1,4 +1,12 @@
-import { describe, test, expect } from "vitest";
+import {
+  describe,
+  test,
+  expect,
+  beforeAll,
+  beforeEach,
+  afterEach,
+  afterAll,
+} from "vitest";
 import {
   getCoupons,
   calculateDiscount,
@@ -157,4 +165,22 @@ describe("fetchData", () => {
 
     // fetchData().then((result) => {});
   });
+});
+
+describe("test suite", () => {
+  beforeAll(() => {
+    console.log("BeforeAll called");
+  });
+  beforeEach(() => {
+    console.log("BeforeEach called");
+  });
+  afterEach(() => {
+    console.log("afterEach called");
+  });
+  afterAll(() => {
+    console.log("afterAll called");
+  });
+
+  test("test case 1", () => {});
+  test("test case 2", () => {});
 });

@@ -1,7 +1,9 @@
 import { vi, test, expect, describe, beforeEach } from "vitest";
 import {
+  getDiscount,
   getPriceInCurrency,
   getShippingInfo,
+  isOnline,
   login,
   renderPage,
   signUp,
@@ -155,5 +157,35 @@ describe("login", () => {
     await login(email);
     const code = spy.mock.results[0].value.toString();
     expect(sendEmail).toHaveBeenCalledWith(email, code);
+  });
+});
+
+describe("isOnline", () => {
+  test("should return false if current hour is outside opening hours", () => {
+    vi.setSystemTime("2024-01-01 07:59");
+    expect(isOnline()).toBe(false);
+
+    vi.setSystemTime("2024-01-01 20:01");
+    expect(isOnline()).toBe(false);
+  });
+  test("should return true if current hour is inside the opening hours", () => {
+    vi.setSystemTime("2024-01-01 08:00");
+    expect(isOnline()).toBe(true);
+
+    vi.setSystemTime("2024-01-01 19:59");
+    expect(isOnline()).toBe(true);
+  });
+});
+
+describe("getDiscount", () => {
+  test("should return 20% of discount if it is christmas", () => {
+    vi.setSystemTime("2024-12-25 00:00");
+    expect(getDiscount()).toBe(0.2);
+  });
+  test("should return 0% of discount if it is not christmas", () => {
+    vi.setSystemTime("2024-12-24 00:00");
+    expect(getDiscount()).toBe(0);
+    vi.setSystemTime("2024-12-26 00:00");
+    expect(getDiscount()).toBe(0);
   });
 });

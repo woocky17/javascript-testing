@@ -1,7 +1,7 @@
 import { vi, test, expect, describe } from "vitest";
 
 describe("test suite", () => {
-  test("test case", () => {
+  test("test case 1", () => {
     const greet = vi.fn();
 
     // greet.mockReturnValue("Hello");
@@ -15,5 +15,15 @@ describe("test suite", () => {
     console.log(greet("David"));
 
     expect(greet).toHaveBeenCalled("David");
+  });
+
+  test("test case 2", () => {
+    const sendText = vi.fn();
+    sendText.mockReturnValue("ok");
+
+    const result = sendText("message");
+
+    expect(sendText).toHaveBeenCalledWith("message");
+    expect(result).toBe("ok");
   });
 });

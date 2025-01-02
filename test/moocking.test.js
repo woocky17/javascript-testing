@@ -1,4 +1,8 @@
 import { vi, test, expect, describe } from "vitest";
+import { getPriceInCurrency } from "../src/mocking";
+import { getExchangeRate } from "../src/libs/currency";
+
+vi.mock("../src/libs/currency");
 
 describe("test suite", () => {
   test("test case 1", () => {
@@ -25,5 +29,14 @@ describe("test suite", () => {
 
     expect(sendText).toHaveBeenCalledWith("message");
     expect(result).toBe("ok");
+  });
+});
+
+describe("getPriceInCurrency", () => {
+  test("should return price in targer currency", () => {
+    vi.mocked(getExchangeRate).mockReturnValue(156.84);
+
+    const price = getPriceInCurrency(10, "YEN");
+    expect(price).toBe(1568.4);
   });
 });

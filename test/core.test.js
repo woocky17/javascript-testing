@@ -125,25 +125,25 @@ describe("isValidUsername", () => {
 describe("canDrive", () => {
   const US = 16;
   const UK = 17;
-  test("should return false for underage in the US", () => {
-    expect(canDrive(US - 1, "US")).toBe(false);
-  });
-  test("should return true for min age in the US", () => {
-    expect(canDrive(US, "US")).toBe(true);
-  });
-  test("should return true for older people up to the limit of what is allowed in the US.", () => {
-    expect(canDrive(US + 1, "US")).toBe(true);
-  });
 
-  test("should return false for underage in the UK", () => {
-    expect(canDrive(UK - 1, "UK")).toBe(false);
-  });
-  test("should return true for min age in the UK", () => {
-    expect(canDrive(UK, "UK")).toBe(true);
-  });
-  test("should return true for older people up to the limit of what is allowed in the UK.", () => {
-    expect(canDrive(UK + 1, "UK")).toBe(true);
-  });
+  test.each([
+    { age: US - 1, country: "US", result: false },
+    { age: US, country: "US", result: true },
+    { age: US + 1, country: "US", result: true },
+    { age: UK - 1, country: "UK", result: false },
+    { age: UK, country: "UK", result: true },
+    { age: UK + 1, country: "UK", result: true },
+  ])(
+    "should return $result for ($age, $country)",
+    ({ age, country, result }) => {
+      expect(canDrive(age, country)).toBe(result);
+      expect(canDrive(age, country)).toBe(result);
+      expect(canDrive(age, country)).toBe(result);
+      expect(canDrive(age, country)).toBe(result);
+      expect(canDrive(age, country)).toBe(result);
+      expect(canDrive(age, country)).toBe(result);
+    }
+  );
 
   test("should return error for invalid country code", () => {
     expect(canDrive(20, "FR")).toMatch(/invalid/i);

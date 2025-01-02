@@ -139,7 +139,7 @@ describe('signUp', () => {
     expect(result).toBe(true);
   });
   test('should send the welcome email if email is valid', async () => {
-    const result = await signUp(email);
+    await signUp(email);
 
     expect(sendEmail).toHaveBeenCalledOnce();
     const args = vi.mocked(sendEmail).mock.calls[0];
